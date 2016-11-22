@@ -1,0 +1,12 @@
+rootProject.name = 'second-kotlin'
+
+def configureBuildScriptForProjectAndDescendants(ProjectDescriptor project) {
+    project.buildFileName = 'build.gradle.kts'
+
+    project.children.each {configureBuildScriptForProjectAndDescendants(it)}
+}
+
+include 'subproj1'
+
+configureBuildScriptForProjectAndDescendants(rootProject);
+
