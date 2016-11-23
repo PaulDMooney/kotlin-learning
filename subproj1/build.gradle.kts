@@ -1,4 +1,5 @@
 dependencies {
+    compile(project(":html"))
     file("dependencies.txt").readLines().forEach { compile(it) }
 }
 apply {
@@ -6,5 +7,5 @@ apply {
 }
 
 configure<ApplicationPluginConvention> {
-    mainClassName = "example.MyMainKt"
+    mainClassName = "example.RenderHTMLKt"
 }

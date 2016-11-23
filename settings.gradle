@@ -6,7 +6,7 @@ def configureBuildScriptForProjectAndDescendants(ProjectDescriptor project) {
     project.children.each {configureBuildScriptForProjectAndDescendants(it)}
 }
 
-include 'subproj1'
+include 'subproj1', 'html'
 
 configureBuildScriptForProjectAndDescendants(rootProject);
 
