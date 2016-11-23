@@ -1,7 +1,6 @@
 package example
 
 import html.html
-import html.elements.*
 
 fun String.firstLetter() = this.get(0);
 
@@ -12,7 +11,7 @@ fun main(args:Array<String>) {
 
         head {
             title { + "My Title" }
-            //meta(name = "author", content = "Paul")
+            meta(name = "author", content = "Paul")
         }
 
         body {

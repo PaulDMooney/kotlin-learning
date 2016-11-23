@@ -1,12 +1,15 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlugin
 
 buildscript {
+
+    val kotlinVersion = "1.1-M02"
+
     repositories {
         gradleScriptKotlin()
     }
 
     dependencies {
-        classpath(kotlinModule("gradle-plugin"))
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        //classpath(kotlinModule("gradle-plugin"))
     }
 }
 
