@@ -1,14 +1,18 @@
 package example
 
 import html.html
+import html.elements.*
 
 fun String.firstLetter() = this.get(0);
 
 fun main(args:Array<String>) {
 
     val myHtml = html {
+
+
         head {
             title { + "My Title" }
+            //meta(name = "author", content = "Paul")
         }
 
         body {

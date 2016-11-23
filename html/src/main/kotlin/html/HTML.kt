@@ -1,60 +1,9 @@
 package html
 
-/**
- * Created by paulm on 11/22/2016.
- *
- * From example in Kotlin documentation
- */
-
-interface Element {
-    fun render(builder: StringBuilder, indent: String)
-}
-
-class TextElement(val text: String) : Element {
-    override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent$text\n")
-    }
-}
-
-abstract class Tag(val name: String) : Element {
-    val children = arrayListOf<Element>()
-    val attributes = hashMapOf<String, String>()
-
-    protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
-        tag.init()
-        children.add(tag)
-        return tag
-    }
-
-    override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent<$name${renderAttributes()}>\n")
-        for (c in children) {
-            c.render(builder, indent + "  ")
-        }
-        builder.append("$indent</$name>\n")
-    }
-
-    private fun renderAttributes(): String? {
-        val builder = StringBuilder()
-        for (a in attributes.keys) {
-            builder.append(" $a=\"${attributes[a]}\"")
-        }
-        return builder.toString()
-    }
+import html.elements.SingleTag
+import html.elements.TagWithText
 
 
-    override fun toString(): String {
-        val builder = StringBuilder()
-        render(builder, "")
-        return builder.toString()
-    }
-}
-
-abstract class TagWithText(name: String) : Tag(name) {
-    operator fun String.unaryPlus() {
-        children.add(TextElement(this))
-    }
-}
 
 class HTML() : TagWithText("html") {
     fun head(init: Head.() -> Unit) = initTag(Head(), init)
@@ -64,6 +13,25 @@ class HTML() : TagWithText("html") {
 
 class Head() : TagWithText("head") {
     fun title(init: Title.() -> Unit) = initTag(Title(), init)
+    fun meta(name:String, content:String) {
+        val meta = initTag(Meta())
+        meta.nameAttr = name;
+        meta.content = content;
+    }
+}
+
+class Meta: SingleTag("meta") {
+    public var nameAttr:String
+        get() = attributes["name"]!!
+        set(value) {
+            attributes["name"] = value
+        }
+
+    public var content:String
+        get() = attributes["content"]!!
+        set(value) {
+            attributes["content"] = value
+        }
 }
 
 class Title() : TagWithText("title")
@@ -95,4 +63,18 @@ fun html(init: HTML.() -> Unit): HTML {
     val html = HTML()
     html.init()
     return html
+}
+
+fun main(args:Array<String>) {
+    val myhtml = html {
+        head {
+            title { + "Title"}
+            meta(name = "meta", content="some content")
+        }
+        body {
+            p {+ "P tag here"}
+        }
+    }
+
+    print(myhtml)
 }

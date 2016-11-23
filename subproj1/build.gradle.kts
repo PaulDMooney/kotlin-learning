@@ -2,6 +2,7 @@ dependencies {
     compile(project(":html"))
     file("dependencies.txt").readLines().forEach { compile(it) }
 }
+
 apply {
     plugin<ApplicationPlugin>()
 }
