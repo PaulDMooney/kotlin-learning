@@ -2,6 +2,8 @@ package example
 
 import html.html
 
+fun String.firstLetter() = this.get(0);
+
 fun main(args:Array<String>) {
 
     val myHtml = html {
@@ -20,4 +22,5 @@ fun main(args:Array<String>) {
     }
 
     print(myHtml)
+    println("ExtensionTest".firstLetter())
 }
