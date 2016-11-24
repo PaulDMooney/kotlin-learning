@@ -5,7 +5,7 @@ import html.elements.TagWithText
 
 
 
-class HTML() : TagWithText("html") {
+public class HTML() : TagWithText("html") {
     fun head(init: Head.() -> Unit) = initTag(Head(), init)
 
     fun body(init: Body.() -> Unit) = initTag(Body(), init)
@@ -63,6 +63,10 @@ fun html(init: HTML.() -> Unit): HTML {
     val html = HTML()
     html.init()
     return html
+}
+
+fun HTML.extensionTest():String {
+    return this.toString()
 }
 
 fun main(args:Array<String>) {
